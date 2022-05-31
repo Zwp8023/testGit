@@ -1,0 +1,228 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.imti</groupId>
+	<artifactId>mavenSSM</artifactId>
+	<packaging>war</packaging>
+	
+	<version>0.0.1-SNAPSHOT</version>
+	<name>mavenSSM Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<!-- 构件依赖dependencies  -->
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- 导入Servlet包 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<!-- 导入jsp -->
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+		<!-- Spring Aop jar包 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>4.0.6.RELEASE</version>
+		</dependency>
+		<!-- spring aspects -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>4.0.6.RELEASE</version>
+		</dependency>
+		<!--spring beans包 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>4.0.6.RELEASE</version>
+		</dependency>
+		<!-- spring context -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>4.0.6.RELEASE</version>
+		</dependency>
+		<!-- spring core -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>4.0.6.RELEASE</version>
+		</dependency>
+		<!-- spring expression -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>4.0.6.RELEASE</version>
+		</dependency>
+		<!-- spring jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>4.0.6.RELEASE</version>
+		</dependency>
+		<!--spring orm -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>4.0.6.RELEASE</version>
+		</dependency>
+		<!-- spring tx -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>4.0.6.RELEASE</version>
+		</dependency>
+		<!-- spring web -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>4.0.6.RELEASE</version>
+		</dependency>
+		<!-- spring webmvc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>4.0.6.RELEASE</version>
+		</dependency>
+		<!-- asm tree -->
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm-tree</artifactId>
+			<version>5.0.3</version>
+		</dependency>
+		<!-- asm -->
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>5.0.3</version>
+		</dependency>
+		<!-- asm commons -->
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm-commons</artifactId>
+			<version>5.0.3</version>
+		</dependency>
+		<!-- c3p0 -->
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.2.1</version>
+		</dependency>
+		<!-- mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.2.5</version>
+		</dependency>
+		<!-- mybatis spring -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+		<!-- mysql -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.11</version>
+		</dependency>
+		<!-- jackson annotations -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<!-- jackson core -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<!-- jackson core-asl -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.8.8</version>
+		</dependency>
+		<!--jackson databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<!-- jackson mapper -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.8.8</version>
+		</dependency>
+		<!-- jackson module-jaxb -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-jaxb-annotations</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<!-- commom-math3 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+			<version>3.6.1</version>
+		</dependency>
+		<!-- javassist -->
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.15.0-GA</version>
+		</dependency>
+		<!-- log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+		</dependency>
+		<!-- ognl -->
+		<dependency>
+			<groupId>ognl</groupId>
+			<artifactId>ognl</artifactId>
+			<version>3.0.6</version>
+		</dependency>
+		<!-- poi -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>4.1.2</version>
+		</dependency>
+		<!-- com.springsource.net.sf.cglib -->
+		<dependency>
+			<groupId>net.sourceforge.cglib</groupId>
+			<artifactId>com.springsource.net.sf.cglib</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+		<!-- com.springsource.org.aoplliance -->
+		<dependency>
+			<groupId>org.aopalliance</groupId>
+			<artifactId>com.springsource.org.aopalliance</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<!--com.springsource.org.aspectj.weaver -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>com.springsource.org.aspectj.weaver</artifactId>
+			<version>1.6.4.RELEASE</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>mavenSSM</finalName>
+	</build>
+</project>

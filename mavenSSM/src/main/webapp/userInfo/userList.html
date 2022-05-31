@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="../js/jquery-3.3.1.js"></script>
+</head>
+<body>
+	<div id="userList"></div>
+	<div id="buttom" style="width:100%; text-align:center;">
+	<a href="javascript:upPage()">上一页</a>&nbsp;&nbsp;
+	第<input type="text" id="page" style="width:15px;" value="1" onchange="changePage()"/>页&nbsp;&nbsp;
+	<a href="javascript:downPage()">下一页</a>&nbsp;&nbsp;
+	共<span id="total"></span>条&nbsp;&nbsp;
+	共<span id="totalPage"></span>页&nbsp;&nbsp;
+	每页<input type="text" style="width:15px;" value="15" id="rows" onchange="changeRows()" />条
+	</div>
+</body>
+<script type="text/javascript">
+    var seachName="";
+	function inti() {
+		var page=$("#page").val();
+		var rows=$("#rows").val();
+		$.ajax({url : "userList.do",
+				data : {seachName : seachName,page:page,rows:rows},
+				type : "post",
+				dataType : "json",
+				success : function(result) {
+					var head = "<table border='1px' cellspacing='0' width='900px' align='center'>"
+						+ "<tr><th colspan='8'>用户列表</th></tr>"
+						+ "<tr><th colspan='8'>"
+						+ "<input type='text' name='seachName' id='seachName'/>"
+						+ "<a href='javascript:seachByName()'>查询</a>"
+						+ "&nbsp;&nbsp;&nbsp;&nbsp;"
+						+ "<a href='ediUserInfo.html'>新增</a>&nbsp;&nbsp;&nbsp;"
+						+"<a href='exportExcel.do?page="+page+"&rows="+$("#rows").val()+"'>导出</a>"
+						+ "</th></tr>"
+						+ "<tr><th>编号</th><th>姓名</th><th>密码</th><th>年龄</th><th>创建时间</th><th>备注</th><th>操作人</th><th>操作</th></tr>";
+					var content = "";
+					$.each(result.userlist, function(index, userInfo) {
+					  content += "<tr align='center'>" + "<td>"
+							+ userInfo.user_id + "</td>" + "<td>"
+						    + userInfo.user_name + "</td>" + "<td>"
+							+ userInfo.user_pwd + "</td>" + "<td>"
+							+ userInfo.user_age + "</td>" + "<td>"
+							+ userInfo.user_createtime + "</td>"
+							+ "<td>" + userInfo.user_remark + "</td>"
+							+ "<td>" + userInfo.opt_id + "</td>"
+							+ "<td>"
+							+ "<a href='ediUserInfo.html?tip=1&user_id="
+							+ userInfo.user_id + "&user_name="
+							+ userInfo.user_name + "&user_pwd="
+							+ userInfo.user_pwd + "&user_age="
+							+ userInfo.user_age + "&user_remark="
+							+ userInfo.user_remark + "'>修改</a>"
+							+ "&nbsp;&nbsp;&nbsp;"
+							+ "<a href='javascript:deleteUserInfo("
+							+ userInfo.user_id + ")'>删除</a>" + "</td>"
+							+ "</tr>"
+						});
+						$("#userList").html(head + content + "</table>");
+						//总共多少条
+					    $("#total").html(result.total);
+						//每页多少条
+						var rows=$("#rows").val();
+						//总共多少页
+						$("#totalPage").html(Math.ceil(result.total/rows));
+						$("#seachName").val(seachName);
+				}
+				});
+	}
+	//页面初始化加载
+	$(function() {
+		inti();
+	})
+	//模糊查询
+	function seachByName() {
+		seachName = $("#seachName").val();
+		inti(seachName);
+	};
+	//上一页
+	function upPage(){
+		var page=$("#page").val();
+		if(page==1){
+			$("#page").val(1);
+		}else{
+			$("#page").val(--page);
+			inti();
+		}
+	}
+	//下一页
+	function downPage(){
+		var page=$("#page").val();
+		var totalPage=$("#totalPage").html();
+		if(page==totalPage){
+			$("#page").val(totalPage);
+		}else{
+			$("#page").val(++page);
+			inti();
+		}
+	}
+	//第几页改变
+	function changePage(){
+		var page=$("#page").val();
+		var totalPage=$("#totalPage").html();
+		page=parseInt(page);
+		totalPage=parseInt(totalPage);
+		if(page>totalPage){
+			$("#page").val(totalPage);
+		}
+		inti();
+	}
+	//每页有几行 值改变事件
+	function changeRows(){
+		$("#page").val(1);
+		inti("");
+	}
+	
+	//删除判断
+	function deleteUserInfo(user_id){
+		var flag=confirm("您确定要删除吗？");
+		if (flag) {
+			$.post("delete.do",{user_id:user_id},function(result){
+				if (result) {
+					alert("删除成功");
+					window.location.href="../userInfo/userList.html";
+				}else{
+					alert("删除失败");
+				}
+
+			},"json");
+		}
+	}
+</script>
+</html>

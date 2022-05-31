@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imti.dao.UserInfoDao">
+		<select id="login" resultType="UserInfo" parameterType="UserInfo">
+		  select
+		   user_id,user_name,user_pwd 
+		  from 
+		    User
+		  where 
+		     user_delflag=0 and user_name=#{user_name} and user_pwd=#{user_pwd}
+		</select>
+		
+		<!-- 查询总条数 -->
+		<select id="findAllUserInfoCount" resultType="int" parameterType="Map">
+		   select 
+		    count(*) 
+		   from 
+		     User 
+		    <where>
+		      user_delflag=0 
+		      <if test="seachName!=null">
+		        and user_name like concat('%',#{seachName},'%') 
+		      </if>
+		     </where> 
+		</select>
+		<!-- 模糊查询 -->
+		<select id="findAllUserInfo" resultType="UserInfo" parameterType="Map">
+		   select 
+		     user_id,user_name,user_pwd,user_age,user_remark,user_createtime,opt_id 
+		   from 
+		     User 
+		    <where>
+		      user_delflag=0 
+		      <if test="seachName!=null">
+		        and user_name like concat('%',#{seachName},'%') 
+		      </if>
+		      ORDER BY user_createtime DESC
+		     limit #{start},#{rows} 
+		     </where> 
+		</select>
+		<!-- 删除 -->
+		<update id="deleteUserInfo" parameterType="UserInfo">
+			 update
+			  User
+			 set
+			  user_delflag=1
+			 <where>
+			   user_id=#{user_id}
+		     </where> 
+		</update>
+		<!-- 添加 -->
+			<insert id="addUserInfo" parameterType="UserInfo">
+			 insert into 
+			   User
+			(user_name,user_pwd,user_age,user_remark,opt_id)
+			   values
+			(#{user_name},#{user_pwd},#{user_age},#{user_remark},#{opt_id})
+			</insert>
+		<!-- 修改 -->	
+		<update id="updateUserInfo" parameterType="UserInfo">
+		update User
+		<set>
+			<if test="user_name!=null">
+			 user_name=#{user_name},
+			</if>
+			<if test="user_pwd!=null">
+			 user_pwd=#{user_pwd},
+			 </if>
+			 <if test="user_age!=0">
+			 user_age=#{user_age},
+			 </if>
+			 <if test="user_remark!=null">
+			 user_remark=#{user_remark},
+			 </if>
+			 user_updatetime=now()
+		 </set>
+		where 
+		   user_id=#{user_id}
+		</update>
+	<select id="findNameByName" resultType="UserInfo" parameterType="UserInfo">
+	 select
+	  user_name
+	 from
+	  User
+	 where
+	  user_name=#{user_name}   
+	</select>	
+</mapper> 

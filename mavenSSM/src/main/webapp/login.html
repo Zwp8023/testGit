@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>用户登录</title>
+<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+</head>
+<style type="text/css">
+	#big {
+		width: 100%;
+		height: 650px;
+		/* border: 1px solid red; */
+		margin: auto;
+		/* background-color:blue; */
+		background-size: 100%, 100%;
+	}
+	
+	#title {
+		/* margin-top: 100px; */
+		width: 500px;
+		height: 450px;
+		/* border: 1px solid red;  */
+		margin: auto;
+		/* background-image: url(../img/Registrationbg.jpg); */
+		background-color: #ffffff;
+		opacity: 0.5;
+		/* background-size: 100%, 100%; */
+		border-radius: 15px;
+		box-shadow: 0 10px #27496d;
+	}
+	
+	h1 {
+		text-align: center;
+		font-family: "宋体";
+		font-weight: bold;
+	}
+	
+	.Loginbt {
+		font-size: 20px;
+		color: black;
+		font-weight: bold;
+		/* border: 1px solid red;  */
+		/* background-color: #6995bc; */
+		opacity: 0.9;
+	}
+	
+	#re {
+		width: 20px;
+		height: 20px;
+	}
+	
+	.text {
+		width: 400px;
+		height: 200px;
+		/* border: 1px solid red; */
+		margin: auto;
+		padding-top: 60px;
+	}
+	
+	#title input {
+		border-radius: 10px;
+		width: 300px;
+		height: 35px;
+		margin: 20px;
+		text-align: center;
+		font-size: 15px;
+		font-weight: bold;
+		/* opacity: 0.9; */
+	}
+	
+	.msg {
+		width: 180px;
+		height: 20px;
+		margin: auto;
+		/* border: 1px solid red;  */
+	}
+	/* .msg span{
+		border: 1px solid red;
+		text-align: center;
+		font-size: 15px;
+		
+	} */
+	#title span {
+		width: 150px;
+		height: 20px;
+		font-size: 16px;
+		font-weight: bold;
+		color: red;
+		/*  border: 1px solid red;  */
+	}
+	
+	.but {
+		color: #fff;
+		background-color: #2f475f;
+		border: none;
+		border-radius: 15px;
+		box-shadow: 0 10px #21405e;
+	}
+	
+	.but_div {
+		width: 300px;
+		height: 90px;
+		margin: auto;
+		/* border: 1px solid red; */
+	}
+	
+	.message {
+		width: 180px;
+		height: 30px;
+		/*  border: 1px solid red;  */
+		/* margin: 10px; */
+		margin: auto;
+	}
+	
+	#rem {
+		width: 220px;
+		height: 35px;
+		/* border: 1px solid red;  */
+		margin-left: 100px;
+		margin-top: -15px;
+	}
+	
+	#rem input {
+		width: 20px;
+		height: 20px;
+	}
+</style>
+</head>
+<body>
+	<div id="big">
+		<form action="userInfo/login.do" method="post">
+			<h1>欢迎登录</h1>
+			<div id="title">
+				<div class="text">
+				<div class="msg">
+						<span id="msg"></span>
+					</div>
+					<input type="text" class="Loginbt" id="nameval" name="user_name" placeholder="请输入账号" /><br />
+					<div class="msg">
+						<span id="namemsg"></span>
+					</div>
+					<input type="password" class="Loginbt" id="pwdval" placeholder="请输入密码" name="user_pwd"/><br />
+					<div class="msg">
+						<span id="pwdmsg"></span>
+					</div>
+					<br />
+					<div id="rem">
+						<input type="checkbox" name="remember" value="rem-me" id="re" />忘记密码
+					</div>
+					<div class="but_div">
+						<input type="submit" value="登录" id="login" class="but" style="width: 100px; height: 30px; font-size: 20px; font-weight: bold; background-color: #27496D;" />&nbsp;&nbsp;
+						<input type="reset" value="取消" class="but" style="width: 100px; height: 30px; font-size: 20px; font-weight: bold; background-color: #27496D;" />
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script type="text/javascript">
+	 function getQueryString(name){
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var url=decodeURI(decodeURI(window.location.search));	//获取返回路径
+		var r=url.substr(1).match(reg);
+		if(r!=null){
+			return unescape(r[2]);
+		}
+		return null;
+	}
+	$(function(){
+		var error=getQueryString("error");
+		var user_name=getQueryString("user_name");
+		var user_pwd=getQueryString("user_pwd");
+		if(error==1){
+			$("#msg").html("*用户名或密码错误");
+			$("#nameval").val(user_name);
+			$("#pwdval").val(user_pwd);
+		}
+		
+	})
+	</script>
+</body>
+</html>

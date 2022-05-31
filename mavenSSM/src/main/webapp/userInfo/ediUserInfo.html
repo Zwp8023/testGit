@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script type="text/javascript" src="../js/jquery-3.3.1.js"></script>
+	</head>
+	<style type="text/css">
+	span {
+		font-size: 15px;
+		color: #27496D;
+		font-weight: bold;
+	}
+	
+	.inpu {
+		background-color: white;
+		width: 200px;
+		height: 20px;
+		text-align: center;
+		font-size: 15px;
+		font-weight: bold;
+	}
+	
+	.but {
+		width: 90px;
+		height: 35px;
+		color: #fff;
+		background-color: #2f475f;
+		border: none;
+		border-radius: 10px;
+		box-shadow: 0 10px #21405e;
+		margin-left: 60px;
+	}
+	#big{
+	    width: 500px;
+		height: 600px;
+		margin: auto;
+	}
+	h2{
+	margin-left: 60px;
+	}
+	</style>
+<body>
+<div id="big">
+	<form action="../userInfo/preSave.do" method="post">
+		<h2>用户信息</h2><br/>
+		<input type="hidden" name="user_id"  id="user_id"/> 
+		<span>姓名:</span><input type="text" name="user_name" class="inpu" id="user_name" /><span style="color: red;" id="namemsg"></span><br /><br />
+		<span>密码:</span><input type="password" name="user_pwd"  class="inpu" id="user_pwd" /><span style="color: red;" id="pwdmsg"></span><br /> <br />
+		<span>年龄:</span><input type="text" name="user_age"  class="inpu" id="user_age" /><span style="color: red;" id="agemsg"></span><br /> <br />
+		<span>备注:</span><input type="textarea" name="user_remark"  class="inpu" id="user_remark" /><span  style="color: red;" id="remarkmsg"></span><br /><br /> 
+		<input type="submit" value="保存" class="but" />
+	</form>
+</div>	
+<script type="text/javascript">
+	function getQueryString(name){
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var url=decodeURI(decodeURI(window.location.search));	//获取返回路径
+		var r=url.substr(1).match(reg);
+		if(r!=null){
+			return unescape(r[2]);
+		}
+		return null;
+	};
+	$(function(){
+		var user_id=getQueryString("user_id");
+		var user_name=getQueryString("user_name");
+		var user_pwd=getQueryString("user_pwd");
+		var user_age=getQueryString("user_age");
+		var user_remark=getQueryString("user_remark");
+		var tip=getQueryString("tip");
+		$("#user_id").val(user_id);
+		$("#user_name").val(user_name);
+		$("#user_pwd").val(user_pwd);
+		$("#user_age").val(user_age);
+		$("#user_remark").val(user_remark);
+		if(tip==1){
+			//用户名框设置只读
+			 $("#user_name").attr("readonly","readonly");
+			 //获得焦点
+			 $("#user_name").focus(function(){
+				  $("#namemsg").text("*用户名不可修改");
+				});
+			 //失去焦点
+			 $("#user_name").blur(function(){
+				  $("#namemsg").text("");
+			   });
+		}else{
+			////用户名框  去除只读属性
+			 $("#user_name").removeAttr("readonly");
+			 $("#user_name").blur(function(){
+				var name=$("#user_name").val();
+				
+				$.post("nameByName.do",{"user_name":name},function(result){
+					
+					var flag=eval(result);//将字符串转为json格式
+					
+					if(flag){
+						$("#namemsg").text("*用户名已存在");
+					}else{
+						$("#namemsg").text("");
+					}
+				})
+			})  
+		}
+			
+	});
+	
+</script>
+</body>
+</html>
